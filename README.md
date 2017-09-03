@@ -2,7 +2,18 @@
 
 The genesis for this code was in the [blog post I wrote a while back](http://tech.shreeni.info/2013/07/compressing-all-pdf-files-in-directory.html). Read that to understand the purpose of this code.
 
+The docker image is readily available at [https://hub.docker.com/r/shreeniwasiyer/pdfcompressor/](https://hub.docker.com/r/shreeniwasiyer/pdfcompressor/)
+
 ## Run Instructions
+
+Run it on the volume you want to and mount it to a folder you like, such as /pdfs as indicated below:
+
+
+```
+docker run -it -v /Volumes/FINENC/:/pdfs/ shreeniwasiyer/pdfcompressor bash
+```
+
+## Build Instructions
 
 ```
 docker build -t pdfcompressor .
