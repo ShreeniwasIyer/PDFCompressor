@@ -26,6 +26,12 @@ Run it on the volume you want to and mount it to a folder you like, such as /pdf
 docker run -it -v /Volumes/FINENC/:/pdfs/ pdfcompressor bash
 ```
 
+## Push instructions
+```
+build -t pdfcompressor:1.1 .
+docker push shreeniwasiyer/pdfcompressor
+```
+
 In the docker container, you can run the compressor.sh like this:
 
 ```
@@ -41,6 +47,14 @@ Compressed into /pdfs/.Trashes/501/Cash (USD)/compressed-5.5.pdf
 Renaming Too-Small File /pdfs/.Trashes/501/2015-09-30.pdf
 Renaming Too-Small File /pdfs/.Trashes/501/2015-08-31.pdf
 ```
+
+If you had used an earlier version that named files like /pdfs/John/DBS/toosmall-2017-04-30.pdf (i.e. the toosmall tag is in the front), then you can run rename.sh to get the tag switched to the end of the file name. This way if you are using the file names to sort, then the sorting order will continue to be maintained.
+
+root@a0b035f73364:/# rename.sh /pdfs/John/DBS/
+Renaming file from /pdfs/John/DBS/toosmall-2017-04-30.pdf to /pdfs/John/DBS/2017-04-30.toosmall.pdf
+Renaming file from /pdfs/John/DBS/toosmall-2017-05-31.pdf to /pdfs/John/DBS/2017-05-31.toosmall.pdf
+Renaming file from /pdfs/John/DBS/toosmall-2017-06-30.pdf to /pdfs/John/DBS/2017-06-30.toosmall.pdf
+Renaming file from /pdfs/John/DBS/toosmall-2017-07-31.pdf to /pdfs/John/DBS/2017-07-31.toosmall.pdf
 
 ### Known Issues
 

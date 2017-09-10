@@ -21,6 +21,9 @@ thresh=$2;
 
 echo "Running the Compressor on $directory and $thresh";
 
+echo "Cleaning up ._ files - they are an irritant at many levels";
+find $directory -name ._\* -delete
+
 find $directory -iname *.pdf | grep -v -i compressed | grep -v passprotected | grep -v toosmall | while read f
 do
     # Looping on all files in the directory which have not been tagged in the past.
@@ -45,7 +48,7 @@ do
 
   if [ "$gsexit" == "0" ]; then
    # Normal File
-   newfilename="$subdir/compressed-$filename";
+   newfilename=`echo "$f" | sed s/\.pdf$/\.compressed\.pdf/I`
 
    # The following command will create a compressed file, then delete the original if the first operation succeeded
    # And echos the fact that both commands were successful.
@@ -54,14 +57,14 @@ do
   else
    # Tag the password protected file so we can ignore it in future.
    echo "Renaming Encrypted File $f"
-   newfilename="$subdir/passprotected-$filename";
+   newfilename=`echo "$f" | sed s/\.pdf$/\.passprotected\.pdf/I`
    mv "$f" "$newfilename"
   fi
  else
   # Tag files too small so we can ignore it in future
 
   echo "Renaming Too-Small File $f"
-  newfilename="$subdir/toosmall-$filename";
+  newfilename=`echo "$f" | sed s/\.pdf$/\.toosmall\.pdf/I`
   mv "$f" "$newfilename"
  fi
 done
